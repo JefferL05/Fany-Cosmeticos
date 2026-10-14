@@ -1,4 +1,4 @@
-# Fanny Cosméticos
+# Fany Cosméticos
 
 Loja Next.js/React/TypeScript integrada a um projeto Supabase exclusivo. Hospedagem atual: Sites; exportação estática também compatível com Vercel.
 
