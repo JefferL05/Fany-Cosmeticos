@@ -60,7 +60,7 @@ export function InventoryPanel({ open, onClose }: { open: boolean; onClose: () =
   }
   if (!open) return null;
   const filtered = products.filter(p => `${p.name} ${p.sku}`.toLowerCase().includes(query.toLowerCase()));
-  return <div className="admin-shell"><header className="admin-header"><div><span className="admin-logo">Fanny</span><span>Administração</span></div><button onClick={onClose}>Voltar à loja ×</button></header>
+  return <div className="admin-shell"><header className="admin-header"><div><span className="admin-logo">Fany</span><span>Administração</span></div><button onClick={onClose}>Voltar à loja ×</button></header>
     <main className="admin-main"><h1>Estoque e pedidos</h1><p>Catálogo demonstrativo. Ajustes de estoque ficam registrados para auditoria.</p><p role="status">{busy ? "Atualizando…" : message}</p>
       <section className="inventory-card"><div className="inventory-title"><h2>Novo produto</h2></div>
         <form className="form-grid" style={{ padding: "0 20px 20px" }} onSubmit={e => void createProduct(e)}>

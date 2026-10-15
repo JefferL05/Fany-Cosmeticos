@@ -5,8 +5,8 @@
 import { adminClient, jsonResponse } from "../_shared/admin-client.ts";
 
 const SUBJECTS: Record<string, string> = {
-  order_received: "Recebemos seu pedido de teste — Fanny Cosméticos",
-  payment_confirmed: "Pagamento confirmado — Fanny Cosméticos",
+  order_received: "Recebemos seu pedido de teste — Fany Cosméticos",
+  payment_confirmed: "Pagamento confirmado — Fany Cosméticos",
 };
 
 Deno.serve(async (req) => {

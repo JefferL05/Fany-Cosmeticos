@@ -2,7 +2,7 @@ import type { Product } from "./types";
 
 export const products: Product[] = [
   {
-    id: "p1", sku: "FAN-SER-001", brand: "Fanny Lab", name: "Sérum Calm Glow Centella", category: "Skincare",
+    id: "p1", sku: "FAN-SER-001", brand: "Fany Lab", name: "Sérum Calm Glow Centella", category: "Skincare",
     concern: "Sensibilidade", skinTypes: ["Sensível", "Mista"], price: 149.9, compareAt: 169.9, pixPrice: 142.4,
     installments: 5, stock: 18, reserved: 2, lot: "FG2408A", expiresAt: "2027-11-30", color: "mint", form: "dropper",
     badge: "Mais amado", description: "Sérum leve para uma rotina confortável, com acabamento luminoso e sem sensação pegajosa.",
@@ -58,7 +58,7 @@ export const products: Product[] = [
     benefits: ["Maciez", "Brilho", "Desembaraço"], ingredients: "Óleo de camélia, aminoácidos, pantenol e manteiga de karité."
   },
   {
-    id: "p9", sku: "FAN-KIT-009", brand: "Fanny Lab", name: "Kit Ritual Essencial", category: "Kits",
+    id: "p9", sku: "FAN-KIT-009", brand: "Fany Lab", name: "Kit Ritual Essencial", category: "Kits",
     concern: "Rotina completa", skinTypes: ["Todos os tipos"], price: 289.9, compareAt: 329.7, pixPrice: 275.4,
     installments: 6, stock: 6, reserved: 1, lot: "FL2412R", expiresAt: "2027-10-30", color: "lilac", form: "pump",
     badge: "Economize R$ 39,80", description: "Três passos para começar: limpeza gentil, hidratação e proteção diária.",

@@ -7,7 +7,7 @@ export function ProductVisual({ product, large = false }: { product: Product; la
       <span className="visual-orb orb-two" />
       <div className={`pack pack-${product.form}`}>
         <span className="pack-cap" />
-        <span className="pack-label">Fanny</span>
+        <span className="pack-label">Fany</span>
         <span className="pack-kind">{product.category}</span>
       </div>
     </div>

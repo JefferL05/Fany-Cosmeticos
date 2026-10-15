@@ -32,6 +32,7 @@ Projeto Supabase: `ylcoubtyvfnoqmwkkmcn`, região São Paulo. Nenhuma tabela de 
 
 - Migrações: `supabase/migrations/20260920134549_store_foundation.sql` e `supabase/migrations/20260921090000_commerce_integrations.sql` (frete por estado, status de pagamento e catálogo administrável).
 - Seed explicitamente demonstrativo: `supabase/seed.sql` (não substitui dados existentes).
+- Correção da marca em catálogos existentes: `supabase/migrations/20261014200000_correct_brand_name.sql`. Aplicar com `supabase db push` no projeto vinculado para atualizar a marca para **Fany Lab**.
 - Testes transacionais: `supabase/tests/access_and_orders.sql`. Executar apenas no ambiente demonstrativo contendo os nove produtos originais. As fixtures são revertidas com ROLLBACK.
 - Funções privilegiadas ficam no schema privado e só são executadas por triggers; validam o usuário e nunca aceitam um preço do cliente.
 - Pedidos são limitados a cinco por usuário por minuto, com no máximo 30 itens distintos. O identificador do pedido evita duplicação em uma nova tentativa da mesma submissão.
@@ -54,6 +55,8 @@ supabase secrets set --env-file supabase/functions/.env   # copie de supabase/fu
 ```
 
 Configure a URL de notificação do Mercado Pago (`.../functions/v1/mercadopago-webhook`) no aplicativo de sandbox e use um token de teste (`TEST-...`) até validar o fluxo ponta a ponta.
+
+Ao publicar a correção do nome **Fany**, faça novo deploy de `send-order-email` e atualize o segredo `RESEND_FROM_EMAIL` para usar `Fany Cosméticos` como nome do remetente, preservando seu endereço de e-mail verificado. O carrinho migra automaticamente a chave antiga para `fany-cart-v2` no mesmo domínio. Endereços de hospedagem e URLs autorizadas no Supabase devem ser atualizados juntos caso o domínio seja alterado.
 
 ## Primeiro acesso administrativo
 

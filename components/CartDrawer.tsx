@@ -26,7 +26,7 @@ export function CartDrawer({ open, items, onClose, onChange, onCheckout }: {
             <div className="cart-list">
               {items.map(({ product, quantity }) => (
                 <div className="cart-item" key={product.id}>
-                  <div className={`cart-thumb ${product.color}`}><span>Fanny</span></div>
+                  <div className={`cart-thumb ${product.color}`}><span>Fany</span></div>
                   <div><small>{product.brand}</small><h3>{product.name}</h3><strong>{money.format(product.price)}</strong>
                     <div className="quantity"><button onClick={() => onChange(product.id, -1)} aria-label="Diminuir">−</button><span>{quantity}</span><button onClick={() => onChange(product.id, 1)} aria-label="Aumentar">+</button></div>
                   </div>
