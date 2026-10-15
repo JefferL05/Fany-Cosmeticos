@@ -2,6 +2,16 @@
 
 Loja Next.js/React/TypeScript integrada a um projeto Supabase exclusivo. Hospedagem atual: Sites; exportação estática também compatível com Vercel.
 
+## Configuração em andamento
+
+Consulte [configuração da loja](docs/configuracao-loja.md) para os dados comerciais pendentes, os segredos dos provedores e a validação de lançamento. Nesta versão, o checkout retorna **somente links sandbox** e o webhook rejeita pagamentos em modo de produção. A hospedagem definitiva será tratada depois da configuração funcional.
+
+- Recuperação de senha e histórico dos últimos 50 pedidos da conta.
+- Frete incluído no total enviado ao Mercado Pago; notificações exigem assinatura válida, pedido, moeda e valor correspondentes.
+- E-mails verificam o usuário proprietário ou serviço interno; confirmação de pagamento exige pedido pago.
+- `npm test`, `npm run typecheck`, `npm run build` e auditoria de dependências executados também pelo GitHub Actions.
+- `supabase/tests/commerce_isolation.sql` testa com dados próprios em uma transação revertida, sem depender do estoque do catálogo.
+
 ## Funcionalidades desta etapa
 
 - Catálogo carregado do Supabase, com carregamento, erro e nova tentativa.

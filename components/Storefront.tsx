@@ -11,6 +11,7 @@ import { supabase } from "@/lib/supabase";
 import { loadProducts } from "@/lib/catalog";
 import { AccountPanel } from "./AccountPanel";
 import { InventoryPanel } from "./InventoryPanel";
+import { OrdersPanel } from "./OrdersPanel";
 
 export function Storefront() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -18,6 +19,8 @@ export function Storefront() {
   const [catalogError, setCatalogError] = useState("");
   const [ready, setReady] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
+  const [ordersOpen, setOrdersOpen] = useState(false);
+  const [recovery, setRecovery] = useState(false);
   const [authRevision, setAuthRevision] = useState(0);
   const [signedIn, setSignedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -31,6 +34,7 @@ export function Storefront() {
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setSignedIn(Boolean(session)); setIsAdmin(false); setAuthRevision(value => value + 1);
+      if (_event === "PASSWORD_RECOVERY") { setRecovery(true); setAccountOpen(true); }
     });
     return () => subscription.unsubscribe();
   }, []);
@@ -98,6 +102,7 @@ export function Storefront() {
     <div className="announcement">Loja em preparação · Catálogo demonstrativo · Nenhuma cobrança será realizada</div>
     <header className="site-header"><a className="brand" href="#top" aria-label="Fany Cosméticos, início"><strong>Fany</strong><span>COSMÉTICOS</span></a><nav><a href="#catalogo">Novidades</a><a href="#catalogo">Skincare</a><a href="#catalogo">Maquiagem</a><a href="#ritual">Seu ritual</a></nav><div className="account-actions" role="group" aria-label="Acesso à conta">{isAdmin && <button onClick={() => setAdminOpen(true)}>Administrar</button>}{signedIn ? <button onClick={() => { void supabase.auth.signOut(); }}>Sair</button> : <button onClick={() => setAccountOpen(true)}>Entrar</button>}</div><div className="header-actions"><label className="search-box"><span>⌕</span><input value={query} onChange={e => setQuery(e.target.value)} placeholder="Buscar seu cuidado" aria-label="Buscar produtos" /></label><button className="cart-button" onClick={() => setCartOpen(true)} aria-label={`Carrinho com ${count} itens`}>Sacola <span>{count}</span></button></div></header>
 
+    {signedIn && <div className="customer-toolbar"><button className="secondary-button" onClick={() => setOrdersOpen(true)}>Meus pedidos</button></div>}
     <main id="top">
       <section className="hero"><div className="hero-copy"><span className="eyebrow">K-beauty escolhida com calma</span><h1>Uma rotina que faz você se sentir <em>bem.</em></h1><p>Cosméticos coreanos selecionados para transformar pequenos cuidados em momentos de pausa, conforto e confiança.</p><div className="hero-actions"><a className="primary-button" href="#catalogo">Encontrar meu cuidado</a><a className="secondary-button" href="#ritual">Montar uma rotina</a></div><div className="hero-proof"><span>✦ Curadoria especializada</span><span>✦ Produtos regularizados</span><span>✦ Compra protegida</span></div></div><div className="hero-art" aria-label="Composição decorativa de cosméticos"><span className="petal petal-one"/><span className="petal petal-two"/><div className="hero-pack hero-tube"><span>Fany</span><small>DAILY DEW</small></div><div className="hero-pack hero-dropper"><i/><span>Fany</span><small>CALM GLOW</small></div><div className="hero-pack hero-jar"><i/><span>Fany</span><small>BARRIER CLOUD</small></div><div className="hero-stamp">Korean<br/>beauty<br/><strong>edit</strong></div></div></section>
 
@@ -109,7 +114,8 @@ export function Storefront() {
     <footer><div className="footer-brand"><strong>Fany</strong><span>Rituais de beleza que acolhem você.</span></div><div><strong>Comprar</strong><a href="#catalogo">Novidades</a><a href="#catalogo">Best-sellers</a><a href="#catalogo">Kits</a></div><div><strong>Ajuda</strong><a href="#">Entrega e rastreio</a><a href="#">Trocas e devoluções</a><a href="#">Fale com a gente</a></div><div><strong>Segurança</strong><span>Checkout protegido</span><span>Privacidade e LGPD</span><span>Produtos verificados</span></div><p>© 2026 Fany Cosméticos · Experiência demonstrativa. Produtos, preços e avaliações são fictícios.</p></footer>
 
     <CartDrawer open={cartOpen} items={cart} onClose={() => setCartOpen(false)} onChange={change} onCheckout={() => { setCartOpen(false); if (!signedIn) { notify("Entre na sua conta para registrar um pedido de teste"); setAccountOpen(true); } else setCheckoutOpen(true); }} />
-    {accountOpen && <AccountPanel onClose={() => setAccountOpen(false)} />}
+    {accountOpen && <AccountPanel recovery={recovery} onClose={() => { setAccountOpen(false); setRecovery(false); }} />}
+    {ordersOpen && signedIn && <OrdersPanel onClose={() => setOrdersOpen(false)} />}
     {checkoutOpen && <CheckoutModal key="checkout" open={checkoutOpen} items={cart} onClose={() => setCheckoutOpen(false)} onSuccess={() => setCart([])} />}
     <ProductModal product={activeProduct} onClose={() => setActiveProduct(null)} onAdd={() => activeProduct && add(activeProduct)} />
     <div className={`toast ${toast ? "show" : ""}`} role="status">{toast}</div>
